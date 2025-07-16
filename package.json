@@ -4,6 +4,9 @@
   "description": "A forked version with left and right sides of body separated with a modified oval head for the male body only",
   "main": "index.tsx",
   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "test": "jest"
   },
   "repository": {
@@ -24,20 +27,23 @@
     "svg"
   ],
   "dependencies": {
-    "ramda": "^0.29.1",
-    "react-native-svg": "^15.8.0"
+    "next": "^15.4.1",
+    "ramda": "^0.31.3",
+    "react-dom": "^19.1.0",
+    "react-native-svg": "^15.12.0",
+    "react-native-web": "^0.20.0"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.15",
-    "@types/ramda": "^0.26.16",
-    "@types/react": "^16.8.23",
-    "@types/react-native": "^0.60.2",
-    "jest": "^24.8.0",
+    "@types/jest": "^30.0.0",
+    "@types/ramda": "^0.30.2",
+    "@types/react": "^19.1.8",
+    "@types/react-native": "^0.73.0",
+    "jest": "^30.0.4",
     "react-native-typescript-transformer": "^1.2.12",
-    "typescript": "^3.5.3"
+    "typescript": "^5.8.3"
   }
 }

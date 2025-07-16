@@ -10,72 +10,88 @@ import { bodyFemaleBack } from "./assets/bodyFemaleBack";
 import { SvgFemaleWrapper } from "./components/SvgFemaleWrapper";
 
 export type Slug =
-| "abs-upper"
-| "abs-lower"
-| "adductors-left-front"
-| "adductors-right-front"
-| "adductors-left-back"
-| "adductors-right-back"
-| "ankles-left-front"
-| "ankles-right-front"
-| "ankles-left-back"
-| "ankles-right-back"
-| "biceps-left"
-| "biceps-right"
-| "calves-left-front"
-| "calves-right-front"
-| "calves-left-back"
-| "calves-right-back"
-| "chest-left"
-| "chest-right"
-| "deltoids-left-front"
-| "deltoids-right-front"
-| "deltoids-left-back"
-| "deltoids-right-back"
-| "feet-right-front"
-| "feet-left-front"
-| "feet-right-back"
-| "feet-left-back"
-| "forearm-left-front"
-| "forearm-right-front"
-| "forearm-left-back"
-| "forearm-right-back"
-| "gluteal-left"
-| "gluteal-right"
-| "hamstring-left"
-| "hamstring-right"
-| "hands-left-front"
-| "hands-right-front"
-| "hands-left-back"
-| "hands-right-back"
-| "head-front"
-| "head-back"
-| "knees-left"
-| "knees-right"
-| "lower-back-left"
-| "lower-back-right"
-| "hips-left"
-| "hips-right"
-| "neck-left-front"
-| "neck-right-front"
-| "neck-left-back"
-| "neck-right-back"
-| "obliques-left"
-| "obliques-right"
-| "quadriceps-left"
-| "quadriceps-right"
-| "tibialis-left"
-| "tibialis-right"
-| "trapezius-left-front"
-| "trapezius-right-front"
-| "trapezius-left-back"
-| "trapezius-right-back"
-| "triceps-left-front"
-| "triceps-right-front"
-| "triceps-left-back"
-| "triceps-right-back"
-| "upper-back-left"
-| "upper-back-right";
+  | "abs-upper"
+  | "abs-lower"
+  | "abs-middle"
+  | "adductors-left"
+  | "adductors-right"
+  | "adductors-left-front"
+  | "adductors-right-front"
+  | "adductors-left-back"
+  | "adductors-right-back"
+  | "ankles-left"
+  | "ankles-right"
+  | "ankles-left-front"
+  | "ankles-right-front"
+  | "ankles-left-back"
+  | "ankles-right-back"
+  | "biceps-left"
+  | "biceps-right"
+  | "calves-left"
+  | "calves-right"
+  | "calves-left-front"
+  | "calves-right-front"
+  | "calves-left-back"
+  | "calves-right-back"
+  | "chest-left"
+  | "chest-right"
+  | "deltoids-left-front"
+  | "deltoids-right-front"
+  | "deltoids-left-back"
+  | "deltoids-right-back"
+  | "feet-left"
+  | "feet-right"
+  | "feet-right-front"
+  | "feet-left-front"
+  | "feet-right-back"
+  | "feet-left-back"
+  | "forearm-left"
+  | "forearm-right"
+  | "forearm-left-front"
+  | "forearm-right-front"
+  | "forearm-left-back"
+  | "forearm-right-back"
+  | "gluteal-left"
+  | "gluteal-right"
+  | "hamstring-left"
+  | "hamstring-right"
+  | "hands-left"
+  | "hands-right"
+  | "hands-left-front"
+  | "hands-right-front"
+  | "hands-left-back"
+  | "hands-right-back"
+  | "head-front"
+  | "head-back"
+  | "knees-left"
+  | "knees-right"
+  | "lower-back-left"
+  | "lower-back-right"
+  | "hips-left"
+  | "hips-right"
+  | "neck-front"
+  | "neck-left-front"
+  | "neck-right-front"
+  | "neck-left-back"
+  | "neck-right-back"
+  | "obliques-left"
+  | "obliques-right"
+  | "quadriceps-left"
+  | "quadriceps-right"
+  | "tibialis-left"
+  | "tibialis-right"
+  | "trapezius-left-front"
+  | "trapezius-right-front"
+  | "trapezius-left-back"
+  | "trapezius-right-back"
+  | "triceps-left"
+  | "triceps-right"
+  | "triceps-left-front"
+  | "triceps-right-front"
+  | "triceps-left-back"
+  | "triceps-right-back"
+  | "upper-back-left"
+  | "upper-back-right";
 
 export interface BodyPart {
   intensity?: number;
@@ -93,6 +109,7 @@ type Props = {
   side: "front" | "back";
   gender?: "male" | "female";
   onBodyPartPress: (b: BodyPart) => void;
+  onBodyPartHover: (slug: Slug | null) => void;
 };
 
 const comparison = (a: BodyPart, b: BodyPart) => a.slug === b.slug;
@@ -101,17 +118,17 @@ const Body = ({
   data,
   gender = "male",
   scale = 1,
-  colors=  ["#0984e3", "#74b9ff"],
-  zoomOnPress = false,
+  colors = ["#0984e3", "#74b9ff"],
   side = "front",
   onBodyPartPress,
+  onBodyPartHover,
 }: Props) => {
   const mergedBodyParts = useCallback(
     (dataSource: ReadonlyArray<BodyPart>) => {
       const innerData = data
         .map((d) => {
           return dataSource.find((t) => {
-            return (t.slug === d.slug)
+            return t.slug === d.slug;
           });
         })
         .filter(Boolean);
@@ -132,7 +149,8 @@ const Body = ({
 
   const getColorToFill = (bodyPart: BodyPart) => {
     let color;
-    if (bodyPart.intensity) color = colors[bodyPart.intensity];
+    if (bodyPart.intensity && bodyPart.intensity > 0)
+      color = colors[bodyPart.intensity - 1];
     else color = bodyPart.color;
     return color;
   };
@@ -148,6 +166,8 @@ const Body = ({
                 <Path
                   key={path}
                   onPress={() => onBodyPartPress?.(bodyPart)}
+                  onPressIn={() => onBodyPartHover?.(bodyPart.slug)}
+                  onPressOut={() => onBodyPartHover?.(null)}
                   id={bodyPart.slug}
                   fill={getColorToFill(bodyPart)}
                   d={path}
@@ -167,4 +187,4 @@ const Body = ({
   return renderBodySvg(side === "front" ? bodyFront : bodyBack);
 };
 
-export default memo(Body);
+export default memo(Body); 

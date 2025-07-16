@@ -1,0 +1,25 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+exports.id = "vendor-chunks/@react-native+assets-registry@0.80.1";
+exports.ids = ["vendor-chunks/@react-native+assets-registry@0.80.1"];
+exports.modules = {
+
+/***/ "(pages-dir-node)/./node_modules/.pnpm/@react-native+assets-registry@0.80.1/node_modules/@react-native/assets-registry/registry.js":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/.pnpm/@react-native+assets-registry@0.80.1/node_modules/@react-native/assets-registry/registry.js ***!
+  \************************************************************************************************************************/
+/***/ ((module) => {
+
+eval("/**\n * Copyright (c) Meta Platforms, Inc. and affiliates.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n *\n * @flow strict\n * @format\n */\n\n\n\n/*::\nexport type AssetDestPathResolver = 'android' | 'generic';\n\nexport type PackagerAsset = {\n  +__packager_asset: boolean,\n  +fileSystemLocation: string,\n  +httpServerLocation: string,\n  +width: ?number,\n  +height: ?number,\n  +scales: Array<number>,\n  +hash: string,\n  +name: string,\n  +type: string,\n  +resolver?: AssetDestPathResolver,\n  ...\n};\n*/\n\nconst assets /*: Array<PackagerAsset> */ = [];\n\nfunction registerAsset(asset /*: PackagerAsset */) /*: number */ {\n  // `push` returns new array length, so the first asset will\n  // get id 1 (not 0) to make the value truthy\n  return assets.push(asset);\n}\n\nfunction getAssetByID(assetId /*: number */) /*: PackagerAsset */ {\n  return assets[assetId - 1];\n}\n\n// eslint-disable-next-line lint/no-commonjs-exports\nmodule.exports = {registerAsset, getAssetByID};\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHBhZ2VzLWRpci1ub2RlKS8uL25vZGVfbW9kdWxlcy8ucG5wbS9AcmVhY3QtbmF0aXZlK2Fzc2V0cy1yZWdpc3RyeUAwLjgwLjEvbm9kZV9tb2R1bGVzL0ByZWFjdC1uYXRpdmUvYXNzZXRzLXJlZ2lzdHJ5L3JlZ2lzdHJ5LmpzIiwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFYTs7QUFFYjtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQSxrQkFBa0IiLCJzb3VyY2VzIjpbIi9ob21lL2hhc2hhbi9FL0Rldi9Qcm9qZWN0cy9IYXNoYW4vcmVhY3QtbmF0aXZlLWJvZHktaGlnaGxpZ2h0ZXIvbm9kZV9tb2R1bGVzLy5wbnBtL0ByZWFjdC1uYXRpdmUrYXNzZXRzLXJlZ2lzdHJ5QDAuODAuMS9ub2RlX21vZHVsZXMvQHJlYWN0LW5hdGl2ZS9hc3NldHMtcmVnaXN0cnkvcmVnaXN0cnkuanMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBDb3B5cmlnaHQgKGMpIE1ldGEgUGxhdGZvcm1zLCBJbmMuIGFuZCBhZmZpbGlhdGVzLlxuICpcbiAqIFRoaXMgc291cmNlIGNvZGUgaXMgbGljZW5zZWQgdW5kZXIgdGhlIE1JVCBsaWNlbnNlIGZvdW5kIGluIHRoZVxuICogTElDRU5TRSBmaWxlIGluIHRoZSByb290IGRpcmVjdG9yeSBvZiB0aGlzIHNvdXJjZSB0cmVlLlxuICpcbiAqIEBmbG93IHN0cmljdFxuICogQGZvcm1hdFxuICovXG5cbid1c2Ugc3RyaWN0JztcblxuLyo6OlxuZXhwb3J0IHR5cGUgQXNzZXREZXN0UGF0aFJlc29sdmVyID0gJ2FuZHJvaWQnIHwgJ2dlbmVyaWMnO1xuXG5leHBvcnQgdHlwZSBQYWNrYWdlckFzc2V0ID0ge1xuICArX19wYWNrYWdlcl9hc3NldDogYm9vbGVhbixcbiAgK2ZpbGVTeXN0ZW1Mb2NhdGlvbjogc3RyaW5nLFxuICAraHR0cFNlcnZlckxvY2F0aW9uOiBzdHJpbmcsXG4gICt3aWR0aDogP251bWJlcixcbiAgK2hlaWdodDogP251bWJlcixcbiAgK3NjYWxlczogQXJyYXk8bnVtYmVyPixcbiAgK2hhc2g6IHN0cmluZyxcbiAgK25hbWU6IHN0cmluZyxcbiAgK3R5cGU6IHN0cmluZyxcbiAgK3Jlc29sdmVyPzogQXNzZXREZXN0UGF0aFJlc29sdmVyLFxuICAuLi5cbn07XG4qL1xuXG5jb25zdCBhc3NldHMgLyo6IEFycmF5PFBhY2thZ2VyQXNzZXQ+ICovID0gW107XG5cbmZ1bmN0aW9uIHJlZ2lzdGVyQXNzZXQoYXNzZXQgLyo6IFBhY2thZ2VyQXNzZXQgKi8pIC8qOiBudW1iZXIgKi8ge1xuICAvLyBgcHVzaGAgcmV0dXJucyBuZXcgYXJyYXkgbGVuZ3RoLCBzbyB0aGUgZmlyc3QgYXNzZXQgd2lsbFxuICAvLyBnZXQgaWQgMSAobm90IDApIHRvIG1ha2UgdGhlIHZhbHVlIHRydXRoeVxuICByZXR1cm4gYXNzZXRzLnB1c2goYXNzZXQpO1xufVxuXG5mdW5jdGlvbiBnZXRBc3NldEJ5SUQoYXNzZXRJZCAvKjogbnVtYmVyICovKSAvKjogUGFja2FnZXJBc3NldCAqLyB7XG4gIHJldHVybiBhc3NldHNbYXNzZXRJZCAtIDFdO1xufVxuXG4vLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUgbGludC9uby1jb21tb25qcy1leHBvcnRzXG5tb2R1bGUuZXhwb3J0cyA9IHtyZWdpc3RlckFzc2V0LCBnZXRBc3NldEJ5SUR9O1xuIl0sIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6WzBdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(pages-dir-node)/./node_modules/.pnpm/@react-native+assets-registry@0.80.1/node_modules/@react-native/assets-registry/registry.js\n");
+
+/***/ })
+
+};
+;
