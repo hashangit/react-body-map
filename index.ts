@@ -1,3 +1,4 @@
-import Body, { BodyPart, Slug } from './Body';
+import Body, { type BodyPart, type Slug } from './Body';
 
-export { Body, BodyPart, Slug }; 
+export { Body };
+export type { BodyPart, Slug }; 
