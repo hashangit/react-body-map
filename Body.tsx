@@ -5,9 +5,13 @@ import differenceWith from "ramda/src/differenceWith";
 import { bodyFront } from "./assets/bodyFront";
 import { bodyBack } from "./assets/bodyBack";
 import { SvgMaleWrapper } from "./components/SvgMaleWrapper";
-import { bodyFemaleFront } from "./assets/bodyFemaleFront";
-import { bodyFemaleBack } from "./assets/bodyFemaleBack";
-import { SvgFemaleWrapper } from "./components/SvgFemaleWrapper";
+
+const DEFAULT_COLORS = [
+  '#5db8f5', // "Selected"
+  '#0eac0e', // "Concerning"
+  '#e6c327', // "Needs attention"
+  '#f8556d', // "Critical"
+];
 
 export type Slug =
   | "abs-upper"
@@ -101,27 +105,24 @@ export interface BodyPart {
 }
 
 type Props = {
-  colors: ReadonlyArray<string>;
+  colors?: ReadonlyArray<string>;
   data: ReadonlyArray<BodyPart>;
   scale: number;
   frontOnly: boolean;
   backOnly: boolean;
   side: "front" | "back";
-  gender?: "male" | "female";
   onBodyPartPress: (b: BodyPart) => void;
-  onBodyPartHover: (slug: Slug | null) => void;
+  //onBodyPartHover?: (slug: Slug | null) => void;
 };
 
 const comparison = (a: BodyPart, b: BodyPart) => a.slug === b.slug;
 
 const Body = ({
   data,
-  gender = "male",
   scale = 1,
-  colors = ["#0984e3", "#74b9ff"],
+  colors = DEFAULT_COLORS,
   side = "front",
   onBodyPartPress,
-  onBodyPartHover,
 }: Props) => {
   const mergedBodyParts = useCallback(
     (dataSource: ReadonlyArray<BodyPart>) => {
@@ -131,10 +132,10 @@ const Body = ({
             return t.slug === d.slug;
           });
         })
-        .filter(Boolean);
+        .filter((d) => d !== undefined);
 
       const coloredBodyParts = innerData.map((d) => {
-        const bodyPart = data.find((e) => e.slug === d?.slug);
+        const bodyPart = data.find((e) => e.slug === d!.slug);
         let colorIntensity = 1;
         if (bodyPart?.intensity) colorIntensity = bodyPart.intensity;
         return { ...d, color: colors[colorIntensity - 1] };
@@ -156,7 +157,7 @@ const Body = ({
   };
 
   const renderBodySvg = (data: ReadonlyArray<BodyPart>) => {
-    const SvgWrapper = gender === "male" ? SvgMaleWrapper : SvgFemaleWrapper;
+    const SvgWrapper = SvgMaleWrapper;
     return (
       <SvgWrapper side={side} scale={scale}>
         {mergedBodyParts(data).map((bodyPart: BodyPart) => {
@@ -166,8 +167,6 @@ const Body = ({
                 <Path
                   key={path}
                   onPress={() => onBodyPartPress?.(bodyPart)}
-                  onPressIn={() => onBodyPartHover?.(bodyPart.slug)}
-                  onPressOut={() => onBodyPartHover?.(null)}
                   id={bodyPart.slug}
                   fill={getColorToFill(bodyPart)}
                   d={path}
@@ -179,10 +178,6 @@ const Body = ({
       </SvgWrapper>
     );
   };
-
-  if (gender === "female") {
-    return renderBodySvg(side === "front" ? bodyFemaleFront : bodyFemaleBack);
-  }
 
   return renderBodySvg(side === "front" ? bodyFront : bodyBack);
 };

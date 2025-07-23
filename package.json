@@ -1,22 +1,24 @@
 {
-  "name": "@teambuildr/react-native-body-highlighter",
-  "version": "3.0.7",
-  "description": "A forked version with left and right sides of body separated with a modified oval head for the male body only",
-  "main": "index.tsx",
+  "name": "react-body-map",
+  "version": "1.0.0",
+  "description": "A React component for highlighting parts of the human body.",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "jest"
+    "build": "tsc",
+    "prepublishOnly": "pnpm build"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:TeamBuildr/react-native-body-highlighter.git"
+    "url": "https://github.com/your-username/react-body-highlighter.git"
   },
-  "author": "HichamELBSI",
+  "author": "Your Name",
   "license": "MIT",
   "keywords": [
-    "reactnative",
     "react",
     "muscle",
     "muscles",
@@ -27,23 +29,20 @@
     "svg"
   ],
   "dependencies": {
-    "next": "^15.4.1",
     "ramda": "^0.31.3",
-    "react-dom": "^19.1.0",
     "react-native-svg": "^15.12.0",
     "react-native-web": "^0.20.0"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^30.0.0",
     "@types/ramda": "^0.30.2",
     "@types/react": "^19.1.8",
-    "@types/react-native": "^0.73.0",
-    "jest": "^30.0.4",
-    "react-native-typescript-transformer": "^1.2.12",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "next": "^15.4.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }

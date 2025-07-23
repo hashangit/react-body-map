@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["react-native", "react-native-svg"],
+  transpilePackages: ["react-native-svg"],
   webpack: (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
-      // Transform all direct `react-native` imports to `react-native-web`
-      "react-native$": "react-native-web",
+      // Transform all `react-native` imports to `react-native-web`
+      "react-native": "react-native-web",
     };
     config.resolve.extensions = [
       ".web.js",
@@ -18,4 +18,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = nextConfig; 
