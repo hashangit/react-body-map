@@ -7,14 +7,14 @@ export interface BodyPart {
     pathArray?: string[];
 }
 type Props = {
-    colors: ReadonlyArray<string>;
+    colors?: ReadonlyArray<string>;
     data: ReadonlyArray<BodyPart>;
     scale: number;
     frontOnly: boolean;
     backOnly: boolean;
     side: "front" | "back";
     onBodyPartPress: (b: BodyPart) => void;
-    onBodyPartHover?: (slug: Slug | null) => void;
 };
-declare const _default: React.MemoExoticComponent<({ data, scale, colors, side, onBodyPartPress, onBodyPartHover, }: Props) => React.JSX.Element>;
+declare const _default: React.MemoExoticComponent<({ data, scale, colors, side, frontOnly, backOnly, onBodyPartPress, }: Props) => import("react/jsx-runtime").JSX.Element>;
 export default _default;
+//# sourceMappingURL=Body.d.ts.map

@@ -1,13 +1,17 @@
-# react-body-map
+# React Body Map
 
-[![npm](https://img.shields.io/npm/v/react-body-map.svg)](https://www.npmjs.com/package/react-body-map) [![Downloads](https://img.shields.io/npm/dt/react-body-map.svg)](https://www.npmjs.com/package/react-body-map)
+[![npm](https://img.shields.io/npm/v/react-body-map)](https://www.npmjs.com/package/react-body-map)
+[![npm](https://img.shields.io/npm/dt/react-body-map)](https://www.npmjs.com/package/react-body-map)
 
-> A React component for highlighting parts of the human body.
+A versatile and interactive body map component for React and Next.js applications. Allows for easy selection, highlighting, and annotation of body parts.
 
-<div style="text-align:center;width:100%;">
-  <img src="./docs/screenshots/male-front.png" width="150" alt="body-highlighter" />
-  <img src="./docs/screenshots/male-back.png" width="150" alt="body-highlighter" />
-</div>
+## Features
+
+-   **Interactive Body Map**: Click to select and deselect body parts.
+-   **Front and Back Views**: Easily toggle between front and back views of the body.
+-   **Customizable Colors**: Define your own color scheme for different intensity levels.
+-   **Scalable**: Zoom in and out of the body map.
+-   **TypeScript Support**: Fully typed for a better development experience.
 
 ## Installation
 
@@ -15,149 +19,68 @@
 pnpm add react-body-map
 ```
 
-## Usage with Next.js
+## Usage
 
-This package is compatible with Next.js. You'll need to configure your `next.config.js` to transpile `react-native-svg`:
-
-```javascript
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  transpilePackages: ["react-native-svg"],
-};
-
-module.exports = nextConfig;
-```
-
-A simple example of how to use the component:
+Here's a simple example of how to use the `Body` component:
 
 ```jsx
-import React, { useState } from "react";
-import { Body, BodyPart } from "react-body-map";
+import React, { useState } from 'react';
+import { Body, BodyPart, Slug } from 'react-body-map';
 
 const App = () => {
-  const [selectedParts, setSelectedParts] = useState<BodyPart[]>([]);
+    const [selectedParts, setSelectedParts] = useState<BodyPart[]>([]);
 
-  const onBodyPartPress = (part: BodyPart) => {
-    setSelectedParts(current => {
-        const partIndex = current.findIndex(p => p.slug === part.slug);
-        if (partIndex > -1) {
-            return current.filter(p => p.slug !== part.slug);
+    const handlePartClick = (part: { slug: Slug; intensity?: number }) => {
+        const { slug } = part;
+        const newSelectedParts = [...selectedParts];
+        const existingPartIndex = newSelectedParts.findIndex((p) => p.slug === slug);
+
+        if (existingPartIndex !== -1) {
+            // Deselect part
+            newSelectedParts.splice(existingPartIndex, 1);
         } else {
-            return [...current, { ...part, intensity: 1 }];
+            // Select part
+            newSelectedParts.push({ slug, intensity: 1 });
         }
-    });
-  };
+        setSelectedParts(newSelectedParts);
+    };
 
-  return (
-      <Body
-        data={selectedParts}
-        onBodyPartPress={onBodyPartPress}
-      />
-  );
+    return (
+        <div>
+            <Body
+                parts={selectedParts}
+                onPartPress={handlePartClick}
+            />
+        </div>
+    );
 };
+
+export default App;
 ```
 
-**For a feature-rich example with a notes UI, intensity selection, and more, please see the [example's README](./pages/README.md).**
+For a more advanced example with a notes UI, intensity selection, and more, please see the [example directory](./example) in the repository.
 
 ## Props
 
-| Prop            | Required | Purpose                                                                                                                  |
-| --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------ |
-| data            | Yes      | `BodyPart[]` - Array of `BodyPart` to highlight.                                                              |
-| onBodyPartPress | No       | `Func` - (bodyPart: BodyPart) => {} Callback for when a body part is pressed.                                    |
-| colors          | No       | `String[]` - An array of colors to use for intensity levels. Defaults to a four-color scheme.                                     |
-| side            | No       | `string` - "front" or "back". Defaults to `front`.                                                                 |
-| scale           | No       | `Float` - The scale of the SVG. Defaults to `1`.                                                                                                |
+| Prop          | Required | Type                                     | Description                                                                                |
+| ------------- | -------- | ---------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `parts`       | Yes      | `BodyPart[]`                             | An array of `BodyPart` objects to highlight.                                               |
+| `onPartPress` | No       | `(bodyPart: BodyPart) => void`           | A callback function that is triggered when a body part is clicked.                         |
+| `colors`      | No       | `string[]`                               | An array of colors to use for different intensity levels. Defaults to a four-color scheme. |
+| `side`        | No       | `'front' │ 'back'`                       | The side of the body to display. Defaults to `'front'`.                                    |
+| `scale`       | No       | `number`                                 | The scale of the SVG. Defaults to `1`.                                                     |
+| `frontOnly`   | No       | `boolean`                                | If `true`, only the front view will be displayed.                                          |
+| `backOnly`    | No       | `boolean`                                | If `true`, only the back view will be displayed.                                           |
 
-## BodyPart object model
+## `BodyPart` Object
 
-- `slug`: The name of the body part to highlight. See the list below.
-- `intensity`: A number from 1 to `colors.length` that determines which color to use.
-- `color`: A string to override the intensity color.
+The `BodyPart` object has the following structure:
 
-## List of body parts
+-   `slug`: The name of the body part to highlight.
+-   `intensity`: A number from 1 to `colors.length` that determines which color to use.
 
-| slug                      |
-| ------------------------- |
-| abs-upper                 |
-| abs-lower                 |
-| abs-middle                |
-| adductors-left            |
-| adductors-right           |
-| adductors-left-front      |
-| adductors-right-front     |
-| adductors-left-back       |
-| adductors-right-back      |
-| ankles-left               |
-| ankles-right              |
-| ankles-left-front         |
-| ankles-right-front        |
-| ankles-left-back          |
-| ankles-right-back         |
-| biceps-left               |
-| biceps-right              |
-| calves-left               |
-| calves-right              |
-| calves-left-front         |
-| calves-right-front        |
-| calves-left-back          |
-| calves-right-back         |
-| chest-left                |
-| chest-right               |
-| deltoids-left-front       |
-| deltoids-right-front      |
-| deltoids-left-back        |
-| deltoids-right-back       |
-| feet-left                 |
-| feet-right                |
-| feet-right-front          |
-| feet-left-front           |
-| feet-right-back           |
-| feet-left-back            |
-| forearm-left              |
-| forearm-right             |
-| forearm-left-front        |
-| forearm-right-front       |
-| forearm-left-back         |
-| forearm-right-back        |
-| gluteal-left              |
-| gluteal-right             |
-| hamstring-left            |
-| hamstring-right           |
-| hands-left                |
-| hands-right               |
-| hands-left-front          |
-| hands-right-front         |
-| hands-left-back           |
-| hands-right-back          |
-| head-front                |
-| head-back                 |
-| knees-left                |
-| knees-right               |
-| lower-back-left           |
-| lower-back-right          |
-| hips-left                 |
-| hips-right                |
-| neck-front                |
-| neck-left-front           |
-| neck-right-front          |
-| neck-left-back            |
-| neck-right-back           |
-| obliques-left             |
-| obliques-right            |
-| quadriceps-left           |
-| quadriceps-right          |
-| tibialis-left             |
-| tibialis-right            |
-| trapezius-left-front      |
-| trapezius-right-front     |
-| trapezius-left-back       |
-| trapezius-right-back      |
-| triceps-left              |
-| triceps-right             |
-| triceps-left-front        |
-| triceps-right-front       |
-| triceps-left-back         |
-| triceps-right-back        |
-| upper-back-left           |
-| upper-back-right          |
+A full list of available body parts can be found in [bodyFront.ts](./src/assets/bodyFront.ts) and [bodyBack.ts](./src/assets/bodyBack.ts).
+
+## License
+
+This project is licensed under the MIT License.

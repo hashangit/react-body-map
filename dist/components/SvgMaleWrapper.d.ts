@@ -7,3 +7,4 @@ type SvgWrapperProps = {
 };
 export declare const SvgMaleWrapper: React.FC<SvgWrapperProps>;
 export {};
+//# sourceMappingURL=SvgMaleWrapper.d.ts.map

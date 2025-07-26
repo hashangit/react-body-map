@@ -1,6 +1,5 @@
 import React, { memo, useCallback } from "react";
-import { Path } from "react-native-svg";
-import differenceWith from "ramda/src/differenceWith";
+import { differenceWith } from "ramda";
 
 import { bodyFront } from "./assets/bodyFront";
 import { bodyBack } from "./assets/bodyBack";
@@ -122,6 +121,8 @@ const Body = ({
   scale = 1,
   colors = DEFAULT_COLORS,
   side = "front",
+  frontOnly,
+  backOnly,
   onBodyPartPress,
 }: Props) => {
   const mergedBodyParts = useCallback(
@@ -164,9 +165,9 @@ const Body = ({
           if (bodyPart.pathArray) {
             return bodyPart.pathArray.map((path: string) => {
               return (
-                <Path
+                <path
                   key={path}
-                  onPress={() => onBodyPartPress?.(bodyPart)}
+                  onClick={() => onBodyPartPress?.(bodyPart)}
                   id={bodyPart.slug}
                   fill={getColorToFill(bodyPart)}
                   d={path}
@@ -179,7 +180,15 @@ const Body = ({
     );
   };
 
-  return renderBodySvg(side === "front" ? bodyFront : bodyBack);
+  const bodyData = frontOnly
+    ? bodyFront
+    : backOnly
+    ? bodyBack
+    : side === "front"
+    ? bodyFront
+    : bodyBack;
+
+  return renderBodySvg(bodyData);
 };
 
 export default memo(Body); 

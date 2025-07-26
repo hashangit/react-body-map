@@ -1,48 +1,48 @@
 {
   "name": "react-body-map",
-  "version": "1.0.0",
-  "description": "A React component for highlighting parts of the human body.",
+  "version": "1.1.0",
+  "description": "A versatile and interactive body highlighter component for React and Next.js applications. Allows for easy selection, highlighting, and annotation of body parts.",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "files": [
     "dist",
     "README.md"
   ],
   "scripts": {
-    "dev": "next dev",
     "build": "tsc",
-    "prepublishOnly": "pnpm build"
+    "prepublishOnly": "pnpm build",
+    "dev": "pnpm --prefix example dev"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/react-body-highlighter.git"
+    "url": "https://github.com/hashangit/react-body-map.git"
   },
-  "author": "Your Name",
-  "license": "MIT",
   "keywords": [
     "react",
-    "muscle",
-    "muscles",
     "body",
     "highlighter",
-    "highlight",
-    "color",
-    "svg"
+    "interactive",
+    "svg",
+    "anatomy",
+    "muscle",
+    "map"
   ],
+  "author": "Hashan Wickramasinghe",
+  "license": "MIT",
   "dependencies": {
-    "ramda": "^0.31.3",
-    "react-native-svg": "^15.12.0",
-    "react-native-web": "^0.20.0"
+    "ramda": "^0.28.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@types/ramda": "^0.30.2",
-    "@types/react": "^19.1.8",
-    "typescript": "^5.8.3",
-    "next": "^15.4.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  }
+    "@types/ramda": "^0.28.23",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.0.4"
+  },
+  "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
 }

@@ -1,4 +1,20 @@
-node_modules/**/*
-.DS_Store
-.idea
-yarn-error.log
+# Dependencies
+/node_modules
+/example/node_modules
+/.pnpm-store
+
+# Build artifacts
+/dist
+/tsconfig.tsbuildinfo
+
+# Next.js
+/.next/
+/example/.next/
+/out/
+
+# Local environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

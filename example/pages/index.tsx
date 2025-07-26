@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Body, BodyPart, Slug } from "../";
+import { Body, BodyPart, Slug } from "react-body-map";
 
 // --- Helper Functions and Data ---
 const friendlyNameMap: Record<Slug, string> = {

@@ -1,85 +1,83 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
     }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = __importStar(require("react"));
-const react_native_svg_1 = require("react-native-svg");
-const differenceWith_1 = __importDefault(require("ramda/src/differenceWith"));
-const bodyFront_1 = require("./assets/bodyFront");
-const bodyBack_1 = require("./assets/bodyBack");
-const SvgMaleWrapper_1 = require("./components/SvgMaleWrapper");
-const comparison = (a, b) => a.slug === b.slug;
-const Body = ({ data, scale = 1, colors = ["#0984e3", "#74b9ff"], side = "front", onBodyPartPress, onBodyPartHover, }) => {
-    const mergedBodyParts = (0, react_1.useCallback)((dataSource) => {
-        const innerData = data
-            .map((d) => {
-            return dataSource.find((t) => {
+var jsx_runtime_1 = require("react/jsx-runtime");
+var react_1 = require("react");
+var ramda_1 = require("ramda");
+var bodyFront_1 = require("./assets/bodyFront");
+var bodyBack_1 = require("./assets/bodyBack");
+var SvgMaleWrapper_1 = require("./components/SvgMaleWrapper");
+var DEFAULT_COLORS = [
+    '#5db8f5', // "Selected"
+    '#0eac0e', // "Concerning"
+    '#e6c327', // "Needs attention"
+    '#f8556d', // "Critical"
+];
+var comparison = function (a, b) { return a.slug === b.slug; };
+var Body = function (_a) {
+    var data = _a.data, _b = _a.scale, scale = _b === void 0 ? 1 : _b, _c = _a.colors, colors = _c === void 0 ? DEFAULT_COLORS : _c, _d = _a.side, side = _d === void 0 ? "front" : _d, frontOnly = _a.frontOnly, backOnly = _a.backOnly, onBodyPartPress = _a.onBodyPartPress;
+    var mergedBodyParts = (0, react_1.useCallback)(function (dataSource) {
+        var innerData = data
+            .map(function (d) {
+            return dataSource.find(function (t) {
                 return t.slug === d.slug;
             });
         })
-            .filter((d) => d !== undefined);
-        const coloredBodyParts = innerData.map((d) => {
-            const bodyPart = data.find((e) => e.slug === d.slug);
-            let colorIntensity = 1;
+            .filter(function (d) { return d !== undefined; });
+        var coloredBodyParts = innerData.map(function (d) {
+            var bodyPart = data.find(function (e) { return e.slug === d.slug; });
+            var colorIntensity = 1;
             if (bodyPart === null || bodyPart === void 0 ? void 0 : bodyPart.intensity)
                 colorIntensity = bodyPart.intensity;
-            return Object.assign(Object.assign({}, d), { color: colors[colorIntensity - 1] });
+            return __assign(__assign({}, d), { color: colors[colorIntensity - 1] });
         });
-        const formattedBodyParts = (0, differenceWith_1.default)(comparison, dataSource, data);
-        return [...formattedBodyParts, ...coloredBodyParts];
+        var formattedBodyParts = (0, ramda_1.differenceWith)(comparison, dataSource, data);
+        return __spreadArray(__spreadArray([], formattedBodyParts, true), coloredBodyParts, true);
     }, [data, colors]);
-    const getColorToFill = (bodyPart) => {
-        let color;
+    var getColorToFill = function (bodyPart) {
+        var color;
         if (bodyPart.intensity && bodyPart.intensity > 0)
             color = colors[bodyPart.intensity - 1];
         else
             color = bodyPart.color;
         return color;
     };
-    const renderBodySvg = (data) => {
-        const SvgWrapper = SvgMaleWrapper_1.SvgMaleWrapper;
-        return (react_1.default.createElement(SvgWrapper, { side: side, scale: scale }, mergedBodyParts(data).map((bodyPart) => {
-            if (bodyPart.pathArray) {
-                return bodyPart.pathArray.map((path) => {
-                    return (react_1.default.createElement(react_native_svg_1.Path, { key: path, onPress: () => onBodyPartPress === null || onBodyPartPress === void 0 ? void 0 : onBodyPartPress(bodyPart), onPressIn: () => onBodyPartHover === null || onBodyPartHover === void 0 ? void 0 : onBodyPartHover(bodyPart.slug), onPressOut: () => onBodyPartHover === null || onBodyPartHover === void 0 ? void 0 : onBodyPartHover(null), id: bodyPart.slug, fill: getColorToFill(bodyPart), d: path }));
-                });
-            }
-        })));
+    var renderBodySvg = function (data) {
+        var SvgWrapper = SvgMaleWrapper_1.SvgMaleWrapper;
+        return ((0, jsx_runtime_1.jsx)(SvgWrapper, { side: side, scale: scale, children: mergedBodyParts(data).map(function (bodyPart) {
+                if (bodyPart.pathArray) {
+                    return bodyPart.pathArray.map(function (path) {
+                        return ((0, jsx_runtime_1.jsx)("path", { onClick: function () { return onBodyPartPress === null || onBodyPartPress === void 0 ? void 0 : onBodyPartPress(bodyPart); }, id: bodyPart.slug, fill: getColorToFill(bodyPart), d: path }, path));
+                    });
+                }
+            }) }));
     };
-    return renderBodySvg(side === "front" ? bodyFront_1.bodyFront : bodyBack_1.bodyBack);
+    var bodyData = frontOnly
+        ? bodyFront_1.bodyFront
+        : backOnly
+            ? bodyBack_1.bodyBack
+            : side === "front"
+                ? bodyFront_1.bodyFront
+                : bodyBack_1.bodyBack;
+    return renderBodySvg(bodyData);
 };
 exports.default = (0, react_1.memo)(Body);
